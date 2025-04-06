@@ -1,0 +1,160 @@
+app:
+  name: IoT Sensor Dashboard
+  version: 1.0.0
+  refresh_interval: 5  # seconds
+  max_history_days: 30
+
+platforms:
+  AWS IoT Core:
+    description: Amazon Web Services IoT Core platform
+    connection_params:
+      endpoint:
+        label: AWS IoT Endpoint
+        default: ''
+        env_var: AWS_IOT_ENDPOINT
+      region:
+        label: AWS Region
+        default: us-east-1
+        env_var: AWS_REGION
+      access_key:
+        label: AWS Access Key ID
+        default: ''
+        env_var: AWS_ACCESS_KEY_ID
+        sensitive: true
+      secret_key:
+        label: AWS Secret Access Key
+        default: ''
+        env_var: AWS_SECRET_ACCESS_KEY
+        sensitive: true
+  
+  Azure IoT Hub:
+    description: Microsoft Azure IoT Hub
+    connection_params:
+      connection_string:
+        label: Connection String
+        default: ''
+        env_var: AZURE_IOT_CONNECTION_STRING
+        sensitive: true
+      hub_name:
+        label: IoT Hub Name
+        default: ''
+        env_var: AZURE_IOT_HUB_NAME
+  
+  ThingSpeak:
+    description: ThingSpeak IoT platform
+    connection_params:
+      api_key:
+        label: API Key
+        default: ''
+        env_var: THINGSPEAK_API_KEY
+        sensitive: true
+      channel_id:
+        label: Channel ID
+        default: ''
+        env_var: THINGSPEAK_CHANNEL_ID
+  
+  MQTT Broker:
+    description: Generic MQTT broker
+    connection_params:
+      broker:
+        label: Broker Address
+        default: 'mqtt.eclipse.org'
+        env_var: MQTT_BROKER
+      port:
+        label: Port
+        default: '1883'
+        env_var: MQTT_PORT
+      username:
+        label: Username (optional)
+        default: ''
+        env_var: MQTT_USERNAME
+      password:
+        label: Password (optional)
+        default: ''
+        env_var: MQTT_PASSWORD
+        sensitive: true
+      topics:
+        label: Topics (comma-separated)
+        default: 'sensors/#'
+        env_var: MQTT_TOPICS
+  
+  Custom API:
+    description: Custom REST API endpoint
+    connection_params:
+      base_url:
+        label: Base URL
+        default: 'https://api.example.com'
+        env_var: API_BASE_URL
+      api_key:
+        label: API Key (optional)
+        default: ''
+        env_var: API_KEY
+        sensitive: true
+      username:
+        label: Username (optional)
+        default: ''
+        env_var: API_USERNAME
+      password:
+        label: Password (optional)
+        default: ''
+        env_var: API_PASSWORD
+        sensitive: true
+
+sensor_types:
+  temperature:
+    name: Temperature
+    unit: °C
+    icon: thermometer
+    min: -50
+    max: 150
+  humidity:
+    name: Humidity
+    unit: '%'
+    icon: droplet
+    min: 0
+    max: 100
+  pressure:
+    name: Pressure
+    unit: hPa
+    icon: activity
+    min: 900
+    max: 1100
+  co2:
+    name: CO2
+    unit: ppm
+    icon: wind
+    min: 0
+    max: 5000
+  light:
+    name: Light
+    unit: lux
+    icon: sun
+    min: 0
+    max: 10000
+  motion:
+    name: Motion
+    unit: binary
+    icon: activity
+    min: 0
+    max: 1
+  occupancy:
+    name: Occupancy
+    unit: count
+    icon: users
+    min: 0
+    max: 100
+
+alerts:
+  email:
+    enabled: false
+    smtp_server: ''
+    smtp_port: 587
+    username: ''
+    password: ''
+    from_addr: ''
+    to_addrs: []
+  sms:
+    enabled: false
+    provider: ''
+    api_key: ''
+    phone_numbers: []
